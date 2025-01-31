@@ -149,11 +149,30 @@ const ProjectsAndTasksSection = styled.div`
   border-radius: 8px;
 `;
 
+const Input = styled.input`
+  padding: 8px;
+  margin: 5px 0;
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+`;
+
+const Form = styled.form`
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+`;
+
+
 const AdminDashboard = ({ token, onLogout }) => {
   const [projects, setProjects] = useState([]);
   const [users, setUsers] = useState([]);
   const [selectedUsers, setSelectedUsers] = useState({});
-  const [userProjects, setUserProjects] = useState({});
+  const [userProjects, setUserProjects] = useState({})
+  const [newProject, setNewProject] = useState({ name: "", start_date: "", duration: "" });
+  const [editingProject, setEditingProject] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -182,6 +201,7 @@ const AdminDashboard = ({ token, onLogout }) => {
     };
 
     fetchData();
+    fetchProjects();
   }, [token]);
 
   const fetchUserProjectsAndTasks = async (userId) => {
@@ -216,6 +236,45 @@ const AdminDashboard = ({ token, onLogout }) => {
     }
   };
 
+  const fetchProjects = async () => {
+    try {
+      const response = await axios.get(`${BASE_URL}/admin/active_projects`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setProjects(response.data);
+    } catch (err) {
+      console.error("Failed to fetch projects", err);
+    }
+  };
+
+  const createProject = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.post(`${BASE_URL}/projects`, newProject, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      alert("Project created successfully!");
+      fetchProjects();
+      setNewProject({ name: "", start_date: "", duration: "" });
+    } catch (err) {
+      alert("Failed to create project.");
+    }
+  };
+
+  const updateProject = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.put(`${BASE_URL}/projects/${editingProject.id}`, editingProject, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      alert("Project updated successfully!");
+      fetchProjects();
+      setEditingProject(null);
+    } catch (err) {
+      alert("Failed to update project.");
+    }
+  };
+
   return (
     <Container>
       <Header>
@@ -223,6 +282,44 @@ const AdminDashboard = ({ token, onLogout }) => {
         <LogoutButton onClick={onLogout}>Logout</LogoutButton>
       </Header>
 
+      <h3>Create New Project</h3>
+      <Form onSubmit={editingProject ? updateProject : createProject}>
+        <label>Project Name:</label>
+        <Input
+          type="text"
+          value={editingProject ? editingProject.name : newProject.name}
+          onChange={(e) =>
+            editingProject
+              ? setEditingProject({ ...editingProject, name: e.target.value })
+              : setNewProject({ ...newProject, name: e.target.value })
+          }
+          required
+        />
+        <label>Start Date:</label>
+        <Input
+          type="date"
+          value={editingProject ? editingProject.start_date : newProject.start_date}
+          onChange={(e) =>
+            editingProject
+              ? setEditingProject({ ...editingProject, start_date: e.target.value })
+              : setNewProject({ ...newProject, start_date: e.target.value })
+          }
+          required
+        />
+        <label>Duration (Days):</label>
+        <Input
+          type="number"
+          value={editingProject ? editingProject.duration : newProject.duration}
+          onChange={(e) =>
+            editingProject
+              ? setEditingProject({ ...editingProject, duration: e.target.value })
+              : setNewProject({ ...newProject, duration: e.target.value })
+          }
+          required
+        />
+        <Button primary type="submit">{editingProject ? "Update Project" : "Create Project"}</Button>
+        {editingProject && <Button danger onClick={() => setEditingProject(null)}>Cancel</Button>}
+      </Form>
 
       <h3>Active Projects</h3>
       <ProjectList>
@@ -266,7 +363,6 @@ const AdminDashboard = ({ token, onLogout }) => {
                   >
                     View Projects and Tasks
                   </Button>
-
                   {userProjects[user.id] && (
                     <ProjectsAndTasksSection>
                       <h6>Projects and Tasks:</h6>

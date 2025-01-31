@@ -105,7 +105,14 @@ const SubmitButton = styled.button`
   }
 `;
 
+const UserInfo = styled.div`
+  font-size: 16px;
+  font-weight: 500;
+  color: #2d3748;
+`;
+
 const UserDashboard = ({ token, onLogout }) => {
+  const [user, setUser] = useState(null);
   const [projects, setProjects] = useState([]);
   const [taskInputs, setTaskInputs] = useState({});
   const [errors, setErrors] = useState({});
@@ -113,6 +120,11 @@ const UserDashboard = ({ token, onLogout }) => {
   useEffect(() => {
     const fetchUserProjects = async () => {
       try {
+        const userResponse = await axios.get('/user/me', {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setUser(userResponse.data);
+
         const response = await axios.get('/user/projects', {
           headers: { Authorization: `Bearer ${token}` },
         });
@@ -205,6 +217,11 @@ const UserDashboard = ({ token, onLogout }) => {
     <Container>
       <Header>
         <Title>User Dashboard</Title>
+        {user ? (
+          <UserInfo>Logged in as: <strong>{user.name || user.email}</strong></UserInfo>
+        ) : (
+          <UserInfo>Loading user...</UserInfo>
+        )}
         <LogoutButton onClick={onLogout}>Logout</LogoutButton>
       </Header>
 
