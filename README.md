@@ -1,70 +1,121 @@
-# Getting Started with Create React App
+## Project Management
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A project management system with user roles, project tracking, and task management capabilities. The
+application will include backend setup using Rails with API endpoints and
+frontend integration using React.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🚀 Backend Setup (Port: 3000)
 
-### `npm start`
+To get the backend up and running, follow the steps below:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 1. Clone the Project Repository 
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Clone the project repository to your local machine using the following command:
 
-### `npm test`
+```
+git clone https://github.com/akshay-cs-borade/project_management_backend.git
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 2. Update Database Configuration
 
-### `npm run build`
+Navigate to `config/database.yml` and update the database configurations (e.g., database name, username, password, etc.) based on your local setup.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 3. Create the Database
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Run the following command to create the database:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+rake db:create
+```
 
-### `npm run eject`
+### 4. Run Migrations
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Apply the migrations to update your database schema:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+rake db:migrate
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### 5. Seed the Database
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Populate your database with seed data:
 
-## Learn More
+```bash
+rake db:seed
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### 6. Start the Rails Server
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Now, run the Rails server:
 
-### Code Splitting
+```bash
+rails s
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Your backend server will be running at `http://localhost:3000`.
 
-### Analyzing the Bundle Size
+### 7. API Documentation
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+For API documentation, you can visit:
 
-### Making a Progressive Web App
+[API Documentation](http://localhost:3000/api-docs/index.html)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+---
 
-### Advanced Configuration
+## 💻 Frontend Setup (Port: 3001)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+To set up and run the frontend, follow the instructions below:
 
-### Deployment
+### 1. Clone the Frontend Repository
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Clone the frontend project repository using the following command: 
 
-### `npm run build` fails to minify
+```bash
+git clone https://github.com/akshay-cs-borade/project-management-client.git
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### 2. Install Dependencies
+
+Navigate to the frontend directory and install the necessary dependencies:
+
+```bash
+npm install
+```
+
+### 3. Start the Frontend Server
+
+Now, start the frontend server:
+
+```bash
+npm start
+```
+
+Your frontend will be accessible at `http://localhost:3001`.
+
+---
+
+## 📝 Notes
+
+- Make sure both the backend and frontend servers are running simultaneously for the full functionality of the project.
+- Ensure that your local environment matches the necessary configuration in the `database.yml` file.
+
+---
+
+### 🔧 Technologies Used:
+- **Backend**: Ruby on Rails
+- **Frontend**: React.js 
+- **Database**: PostgreSQL 
+- **API Docs**: Swagger / OpenAPI
+
+---
+
+## Screen-Shots 
+![Task-Management-01-31-2025_09_24_PM (1)](https://github.com/user-attachments/assets/b80110b8-49d6-4278-a4ac-bd33049620e6)
+![Task-Management-01-31-2025_09_23_PM](https://github.com/user-attachments/assets/b651f254-52cb-4cf8-a8a7-b881fd517b40)
+![Task-Management-01-31-2025_09_24_PM](https://github.com/user-attachments/assets/19952c0b-0e60-4dca-89b2-0601dc9b4c25)
+
+---
+## Demo Video
+https://github.com/user-attachments/assets/121a2153-9c71-4cb4-9f96-92ce4a14e1bc
