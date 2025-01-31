@@ -119,3 +119,14 @@ Your frontend will be accessible at `http://localhost:3001`.
 ---
 ## Demo Video
 https://github.com/user-attachments/assets/121a2153-9c71-4cb4-9f96-92ce4a14e1bc
+
+---
+## Testcase Coverage
+![Code-coverage-for-Project-management-backend-01-31-2025_08_17_PM](https://github.com/user-attachments/assets/a1cf81c7-6d06-4088-a268-6607b8cedb93)
+
+---
+
+## API document screen-shot
+![Swagger-UI-01-31-2025_08_17_PM](https://github.com/user-attachments/assets/d18bf417-e004-4bc3-b38d-a877dfa53030)
+
+---
